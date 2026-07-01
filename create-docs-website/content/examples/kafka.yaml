@@ -1,0 +1,44 @@
+# ClusterLogForwarder: Forwarding to Kafka
+#
+# Forwards application logs to a Kafka cluster using SASL/SCRAM-SHA-512
+# authentication and TLS. The topic name is templated from the log type.
+#
+# Prerequisites:
+#   - A Secret named "kafka-credentials" in openshift-logging containing:
+#       username, password, ca-bundle.crt
+#   - A ServiceAccount named "logcollector"
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: collector
+  namespace: openshift-logging
+spec:
+  serviceAccount:
+    name: logcollector
+  outputs:
+    - name: kafka-out
+      type: kafka
+      kafka:
+        brokers:
+          - "tls://kafka-broker-1.example.com:9093"
+          - "tls://kafka-broker-2.example.com:9093"
+        topic: "ocp-logs-{.log_type||\"unknown\"}"
+        authentication:
+          sasl:
+            username:
+              key: username
+              secretName: kafka-credentials
+            password:
+              key: password
+              secretName: kafka-credentials
+            mechanism: SCRAM-SHA-512
+      tls:
+        ca:
+          key: ca-bundle.crt
+          secretName: kafka-credentials
+  pipelines:
+    - name: to-kafka
+      inputRefs:
+        - application
+      outputRefs:
+        - kafka-out

@@ -1,0 +1,35 @@
+# ClusterLogForwarder: Basic forwarding to LokiStack
+#
+# Forwards application, infrastructure, and audit logs to a LokiStack instance
+# deployed in the openshift-logging namespace. Uses a service account token
+# for authentication.
+#
+# Prerequisites:
+#   - A LokiStack instance named "logging-loki" in openshift-logging
+#   - A ServiceAccount named "logcollector" with appropriate ClusterRoles
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: collector
+  namespace: openshift-logging
+spec:
+  serviceAccount:
+    name: logcollector
+  outputs:
+    - name: lokistack-out
+      type: lokiStack
+      lokiStack:
+        authentication:
+          token:
+            from: serviceAccount
+        target:
+          name: logging-loki
+          namespace: openshift-logging
+  pipelines:
+    - name: all-logs
+      inputRefs:
+        - application
+        - infrastructure
+        - audit
+      outputRefs:
+        - lokistack-out

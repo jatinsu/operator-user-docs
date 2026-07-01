@@ -1,0 +1,40 @@
+# ClusterLogForwarder: Forwarding to AWS CloudWatch
+#
+# Forwards application and infrastructure logs to AWS CloudWatch Logs.
+# Uses static AWS access key credentials stored in a Secret. The log group
+# name is templated from the log type.
+#
+# Prerequisites:
+#   - A Secret named "aws-credentials" in openshift-logging containing:
+#       aws_access_key_id, aws_secret_access_key
+#   - A ServiceAccount named "logcollector"
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: collector
+  namespace: openshift-logging
+spec:
+  serviceAccount:
+    name: logcollector
+  outputs:
+    - name: cloudwatch-out
+      type: cloudwatch
+      cloudwatch:
+        region: us-east-1
+        groupName: "ocp-{.log_type||\"unknown\"}"
+        authentication:
+          type: awsAccessKey
+          awsAccessKey:
+            keyId:
+              key: aws_access_key_id
+              secretName: aws-credentials
+            keySecret:
+              key: aws_secret_access_key
+              secretName: aws-credentials
+  pipelines:
+    - name: to-cloudwatch
+      inputRefs:
+        - application
+        - infrastructure
+      outputRefs:
+        - cloudwatch-out

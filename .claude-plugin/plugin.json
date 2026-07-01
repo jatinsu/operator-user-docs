@@ -1,0 +1,9 @@
+{
+  "name": "operator-user-docs",
+  "description": "Claude Code skills for generating, branding (OKD), and validating OpenShift operator user-facing documentation",
+  "version": "1.0.0",
+  "author": {
+    "name": "Jatin Suri"
+  },
+  "repository": "https://github.com/jsuri/operator-user-docs"
+}

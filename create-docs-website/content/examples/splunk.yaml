@@ -1,0 +1,36 @@
+# ClusterLogForwarder: Forwarding to Splunk HEC
+#
+# Forwards application and infrastructure logs to a Splunk HTTP Event
+# Collector (HEC) endpoint. Uses a HEC token stored in a Secret.
+#
+# Prerequisites:
+#   - A Secret named "splunk-credentials" in openshift-logging containing:
+#       hecToken (the Splunk HEC token)
+#   - A ServiceAccount named "logcollector"
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: collector
+  namespace: openshift-logging
+spec:
+  serviceAccount:
+    name: logcollector
+  outputs:
+    - name: splunk-out
+      type: splunk
+      splunk:
+        url: "https://splunk-hec.example.com:8088"
+        authentication:
+          token:
+            key: hecToken
+            secretName: splunk-credentials
+        index: "ocp-logs"
+      tls:
+        insecureSkipVerify: false
+  pipelines:
+    - name: all-to-splunk
+      inputRefs:
+        - application
+        - infrastructure
+      outputRefs:
+        - splunk-out

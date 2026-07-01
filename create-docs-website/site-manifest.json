@@ -1,0 +1,101 @@
+{
+  "title": "User Docs",
+  "pages": [
+    {
+      "name": "examples",
+      "type": "directory",
+      "children": [
+        {
+          "name": "cloudwatch.yaml",
+          "type": "file",
+          "path": "examples/cloudwatch.yaml",
+          "extension": ".yaml"
+        },
+        {
+          "name": "elasticsearch.yaml",
+          "type": "file",
+          "path": "examples/elasticsearch.yaml",
+          "extension": ".yaml"
+        },
+        {
+          "name": "kafka.yaml",
+          "type": "file",
+          "path": "examples/kafka.yaml",
+          "extension": ".yaml"
+        },
+        {
+          "name": "lokistack-basic.yaml",
+          "type": "file",
+          "path": "examples/lokistack-basic.yaml",
+          "extension": ".yaml"
+        },
+        {
+          "name": "multi-output-with-filters.yaml",
+          "type": "file",
+          "path": "examples/multi-output-with-filters.yaml",
+          "extension": ".yaml"
+        },
+        {
+          "name": "README.md",
+          "type": "file",
+          "path": "examples/README.md",
+          "extension": ".md"
+        },
+        {
+          "name": "splunk.yaml",
+          "type": "file",
+          "path": "examples/splunk.yaml",
+          "extension": ".yaml"
+        },
+        {
+          "name": "syslog.yaml",
+          "type": "file",
+          "path": "examples/syslog.yaml",
+          "extension": ".yaml"
+        }
+      ]
+    },
+    {
+      "name": "api-reference.md",
+      "type": "file",
+      "path": "api-reference.md",
+      "extension": ".md"
+    },
+    {
+      "name": "configuration-reference.md",
+      "type": "file",
+      "path": "configuration-reference.md",
+      "extension": ".md"
+    },
+    {
+      "name": "deployment.md",
+      "type": "file",
+      "path": "deployment.md",
+      "extension": ".md"
+    },
+    {
+      "name": "getting-started.md",
+      "type": "file",
+      "path": "getting-started.md",
+      "extension": ".md"
+    },
+    {
+      "name": "README.md",
+      "type": "file",
+      "path": "README.md",
+      "extension": ".md"
+    },
+    {
+      "name": "troubleshooting.md",
+      "type": "file",
+      "path": "troubleshooting.md",
+      "extension": ".md"
+    },
+    {
+      "name": "validation-shortcomings.md",
+      "type": "file",
+      "path": "validation-shortcomings.md",
+      "extension": ".md"
+    }
+  ]
+}

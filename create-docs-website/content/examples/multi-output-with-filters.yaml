@@ -1,0 +1,76 @@
+# ClusterLogForwarder: Multiple outputs with filtering
+#
+# Demonstrates an advanced configuration with:
+#   - A custom application input scoped to production namespaces
+#   - A drop filter to discard debug/trace-level log entries
+#   - A multiline exception detection filter
+#   - Two outputs: LokiStack for app/infra logs, Splunk for audit logs
+#   - Three pipelines routing different log types to different outputs
+#
+# Prerequisites:
+#   - A LokiStack instance named "logging-loki" in openshift-logging
+#   - A Secret named "splunk-credentials" containing: hecToken
+#   - A ServiceAccount named "logcollector"
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: collector
+  namespace: openshift-logging
+spec:
+  serviceAccount:
+    name: logcollector
+  inputs:
+    - name: app-important
+      type: application
+      application:
+        includes:
+          - namespace: "production-*"
+        excludes:
+          - namespace: "production-test"
+  filters:
+    - name: drop-debug
+      type: drop
+      drop:
+        - test:
+            - field: .level
+              matches: "debug|trace"
+    - name: detect-multiline
+      type: detectMultilineException
+  outputs:
+    - name: lokistack-out
+      type: lokiStack
+      lokiStack:
+        authentication:
+          token:
+            from: serviceAccount
+        target:
+          name: logging-loki
+          namespace: openshift-logging
+    - name: splunk-audit
+      type: splunk
+      splunk:
+        url: "https://splunk-hec.example.com:8088"
+        authentication:
+          token:
+            key: hecToken
+            secretName: splunk-credentials
+        index: "ocp-audit"
+  pipelines:
+    - name: app-to-loki
+      inputRefs:
+        - app-important
+      filterRefs:
+        - drop-debug
+        - detect-multiline
+      outputRefs:
+        - lokistack-out
+    - name: audit-to-splunk
+      inputRefs:
+        - audit
+      outputRefs:
+        - splunk-audit
+    - name: infra-to-loki
+      inputRefs:
+        - infrastructure
+      outputRefs:
+        - lokistack-out
