@@ -4,16 +4,24 @@ A Claude Code plugin that generates, validates, and brands user-facing documenta
 
 ## Quickstart
 
-### 1. Install the plugin
+### 1. Load the plugin
+
+**Option A:** Install permanently
 
 ```bash
 claude plugin add jsuri/operator-user-docs
 ```
 
+**Option B:** Load from a local directory for the current session only
+
+```bash
+claude --plugin-dir /path/to/operator-user-docs
+```
+
 ### 2. Generate docs for an operator
 
 ```
-/generate-user-docs-chai-local --source-dir /path/to/your-operator
+/generate-user-docs-chai --source-dir /path/to/your-operator
 ```
 
 ### 3. Validate against a live cluster
@@ -36,7 +44,7 @@ python3 generate-site.py --docs-dir ../user-docs
 # Open index.html in a browser
 ```
 
-## Workflow
+## Workflow - How the docs are generated/validated
 
 Below is the end-to-end workflow for producing validated operator documentation.
 
@@ -44,7 +52,7 @@ Below is the end-to-end workflow for producing validated operator documentation.
 +---------------------------+       +------------------------+
 |  1. Generate Docs         |       |  2. Validate Docs      |
 |  /generate-user-docs-     | ----> |  /validate-user-docs   |
-|   chai-local              |       |                        |
+|   chai              |       |                        |
 +---------------------------+       +------------------------+
                                               |
                                               v
@@ -55,7 +63,7 @@ Below is the end-to-end workflow for producing validated operator documentation.
                                     +------------------------+       +------------------------+
 ```
 
-### Step 1: Generate Documentation (`/generate-user-docs-chai-local`)
+### Step 1: Generate Documentation (`/generate-user-docs-chai`)
 
 Analyzes the operator's source code and produces a full set of Markdown documentation.
 
