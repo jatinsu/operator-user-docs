@@ -1,0 +1,18 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: KubeletConfig
+metadata:
+  name: custom-kubelet-config
+spec:
+  machineConfigPoolSelector:
+    matchLabels:
+      pools.operator.machineconfiguration.openshift.io/worker: ""
+  kubeletConfig:
+    maxPods: 500
+    systemReserved:
+      cpu: 500m
+      memory: 512Mi
+    kubeReserved:
+      cpu: 500m
+      memory: 512Mi
+  autoSizingReserved: false
+  logLevel: 4

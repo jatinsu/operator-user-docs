@@ -1,0 +1,8 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: PinnedImageSet
+metadata:
+  name: critical-workload-images
+spec:
+  pinnedImages:
+    - name: quay.io/my-org/my-app@sha256:abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+    - name: quay.io/my-org/my-sidecar@sha256:1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef

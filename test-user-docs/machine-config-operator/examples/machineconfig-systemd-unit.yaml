@@ -1,0 +1,27 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 99-worker-custom-systemd
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    systemd:
+      units:
+        - name: custom-startup.service
+          enabled: true
+          contents: |
+            [Unit]
+            Description=Custom Startup Script
+            After=network-online.target
+            Wants=network-online.target
+
+            [Service]
+            Type=oneshot
+            ExecStart=/usr/local/bin/custom-startup.sh
+            RemainAfterExit=yes
+
+            [Install]
+            WantedBy=multi-user.target

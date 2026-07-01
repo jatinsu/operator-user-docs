@@ -1,0 +1,22 @@
+apiVersion: operator.openshift.io/v1
+kind: MachineConfiguration
+metadata:
+  name: cluster
+spec:
+  nodeDisruptionPolicy:
+    files:
+      - path: /etc/my-app/config.json
+        actions:
+          - type: None
+      - path: /etc/my-app/daemon.conf
+        actions:
+          - type: Restart
+            restart:
+              serviceName: my-app.service
+    units:
+      - name: my-app.service
+        actions:
+          - type: DaemonReload
+    sshkey:
+      actions:
+        - type: None

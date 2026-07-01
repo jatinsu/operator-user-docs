@@ -1,0 +1,78 @@
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  serviceAccount:
+    name: collector
+  inputs:
+  - name: critical-apps
+    type: application
+    application:
+      includes:
+      - namespace: production
+      - namespace: staging
+      excludes:
+      - namespace: staging
+        container: debug-*
+  filters:
+  - name: drop-debug
+    type: drop
+    drop:
+    - test:
+      - field: .level
+        matches: "debug"
+  - name: prune-fields
+    type: prune
+    prune:
+      notIn:
+      - .message
+      - .kubernetes.namespace_name
+      - .kubernetes.pod_name
+      - .kubernetes.container_name
+      - .log_type
+      - .log_source
+      - .level
+      - .timestamp
+  outputs:
+  - name: elasticsearch-prod
+    type: elasticsearch
+    elasticsearch:
+      url: https://es.example.com:9200
+      version: 8
+      index: '{.kubernetes.namespace_name||"unknown"}'
+    tls:
+      ca:
+        key: ca-bundle.crt
+        secretName: es-tls
+  - name: s3-archive
+    type: s3
+    s3:
+      region: us-west-2
+      bucket: my-log-archive
+      keyPrefix: '{.log_type}/{.kubernetes.namespace_name}/'
+      authentication:
+        type: iamRole
+        iamRole:
+          roleARN:
+            key: role_arn
+            secretName: aws-credentials
+          token:
+            from: serviceAccount
+  pipelines:
+  - name: critical-to-es
+    inputRefs:
+    - critical-apps
+    filterRefs:
+    - drop-debug
+    - prune-fields
+    outputRefs:
+    - elasticsearch-prod
+  - name: all-to-archive
+    inputRefs:
+    - application
+    - infrastructure
+    - audit
+    outputRefs:
+    - s3-archive
