@@ -1,6 +1,10 @@
 # operator-user-docs
 
-A Claude Code plugin that generates, validates, and brands user-facing documentation for OpenShift operators -- directly from source code.
+A Claude Code plugin that generates, validates, and brands user-facing documentation for OpenShift operators, directly from source code.
+
+## Example Generated User Docs
+
+<https://jatinsu.github.io/operator-user-docs/>
 
 ## Quickstart
 
@@ -21,19 +25,19 @@ claude --plugin-dir /path/to/operator-user-docs
 ### 2. Generate docs for an operator
 
 ```
-/generate-user-docs-chai --source-dir /path/to/your-operator
+/generate-user-docs-chai /path/to/your-operator
 ```
 
 ### 3. Validate against a live cluster
 
 ```
-/validate-user-docs --kubeconfig-path ~/.kube/config --docs-dir user-docs/
+/validate-user-docs /path/to/your/kuebconfig /path/to/your-user-docs
 ```
 
 ### 4. (Optional) Convert to OKD branding
 
 ```
-/okd-branding --file-or-directory user-docs/
+/okd-branding /path/to/your/user-docs/
 ```
 
 ### 5. Build a browsable website
