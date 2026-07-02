@@ -50,4 +50,4 @@ python3 generate-site.py /path/to/your/user-docs
 
 ## Workflow
 
-![Workflow diagram](docs/workflow.png)
+![Workflow diagram](assets/workflow.png)
