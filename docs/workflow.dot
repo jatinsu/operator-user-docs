@@ -1,0 +1,95 @@
+digraph workflow {
+    rankdir=LR;
+    bgcolor=transparent;
+    dpi=150;
+    pad=0.3;
+
+    node [
+        shape=box,
+        style="filled",
+        fontname="Helvetica",
+        fontsize=11,
+        margin="0.2,0.15",
+        width=2.2,
+        height=0
+    ];
+
+    edge [
+        fontname="Helvetica",
+        fontsize=9,
+        color="#555555",
+        arrowsize=0.8
+    ];
+
+    generate [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="2" CELLPADDING="1">
+            <TR><TD><B>/generate-user-docs-chai</B></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• scan repo code, CRDs, Go structs</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• write Markdown docs &amp; examples</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• verify against Chai / openshift-docs</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#E8E8E8",
+        color="#999999"
+    ];
+
+    validate [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="2" CELLPADDING="1">
+            <TR><TD><B>/validate-user-docs</B></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• run commands against live cluster</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• dry-run apply example YAMLs</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• classify issues by severity</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• auto-fix docs (unless --no-fix)</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#E8E8E8",
+        color="#999999"
+    ];
+
+    okd [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="2" CELLPADDING="1">
+            <TR><TD><B>/okd-branding</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8"><I>(optional)</I></FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• replace OCP → OKD branding</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• swap RHCOS, registries, URLs</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• remove enterprise-only content</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#FFFFFF",
+        color="#999999"
+    ];
+
+    website [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="2" CELLPADDING="1">
+            <TR><TD><B>generate-site.py</B></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• copy docs into content/</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• build site-manifest.json</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• open index.html in browser</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#FFFFFF",
+        color="#999999"
+    ];
+
+    output [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="2" CELLPADDING="1">
+            <TR><TD><B>Output</B></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• user-docs/ (Markdown)</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• examples/ (YAML)</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9">• static website</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#E8E8E8",
+        color="#999999",
+        shape=box,
+        style="filled,rounded"
+    ];
+
+    generate -> validate;
+    validate -> okd;
+    okd -> website;
+    website -> output;
+
+    validate -> generate [
+        style=dashed,
+        color="#888888",
+        constraint=false,
+        label="fix issues",
+        fontcolor="#666666"
+    ];
+}
