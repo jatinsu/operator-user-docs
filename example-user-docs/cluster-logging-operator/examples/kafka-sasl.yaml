@@ -1,0 +1,40 @@
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  serviceAccount:
+    name: collector
+  outputs:
+  - name: kafka-logs
+    type: kafka
+    kafka:
+      brokers:
+      - tls://kafka-broker-1.example.com:9093
+      - tls://kafka-broker-2.example.com:9093
+      - tls://kafka-broker-3.example.com:9093
+      topic: '{.log_type}-logs'
+      authentication:
+        sasl:
+          username:
+            key: username
+            secretName: kafka-credentials
+          password:
+            key: password
+            secretName: kafka-credentials
+          mechanism: SCRAM-SHA-512
+      tuning:
+        deliveryMode: AtLeastOnce
+        compression: zstd
+    tls:
+      ca:
+        key: ca.crt
+        secretName: kafka-tls
+  pipelines:
+  - name: to-kafka
+    inputRefs:
+    - application
+    - infrastructure
+    outputRefs:
+    - kafka-logs

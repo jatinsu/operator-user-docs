@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "test-user-docs/**"
+      - "example-user-docs/**"
       - "create-docs-website/**"
   workflow_dispatch:
 
@@ -28,7 +28,7 @@ jobs:
           python-version: "3.12"
 
       - name: Generate site from docs
-        run: python3 create-docs-website/generate-site.py test-user-docs/
+        run: python3 create-docs-website/generate-site.py example-user-docs/
         working-directory: ${{ github.workspace }}
 
       - name: Upload Pages artifact

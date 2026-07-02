@@ -1,0 +1,18 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineOSConfig
+metadata:
+  name: worker
+spec:
+  machineConfigPool:
+    name: worker
+  imageBuilder:
+    imageBuilderType: Job
+  renderedImagePushSecret:
+    name: my-registry-push-secret
+  renderedImagePushSpec: registry.example.com/custom-rhcos:latest
+  containerFile:
+    - containerfileArch: NoArch
+      content: |
+        FROM configs AS machineconfig
+        FROM base AS final
+        RUN rpm -ivh https://example.com/my-package.rpm
