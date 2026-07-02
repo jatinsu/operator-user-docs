@@ -1,101 +1,209 @@
 {
-  "title": "User Docs",
+  "title": "Test User Docs",
   "pages": [
     {
-      "name": "examples",
+      "name": "cluster-logging-operator",
       "type": "directory",
       "children": [
         {
-          "name": "cloudwatch.yaml",
-          "type": "file",
-          "path": "examples/cloudwatch.yaml",
-          "extension": ".yaml"
+          "name": "examples",
+          "type": "directory",
+          "children": [
+            {
+              "name": "cloudwatch-sts.yaml",
+              "type": "file",
+              "path": "cluster-logging-operator/examples/cloudwatch-sts.yaml",
+              "extension": ".yaml"
+            },
+            {
+              "name": "kafka-sasl.yaml",
+              "type": "file",
+              "path": "cluster-logging-operator/examples/kafka-sasl.yaml",
+              "extension": ".yaml"
+            },
+            {
+              "name": "lokistack-basic.yaml",
+              "type": "file",
+              "path": "cluster-logging-operator/examples/lokistack-basic.yaml",
+              "extension": ".yaml"
+            },
+            {
+              "name": "multi-output-filtered.yaml",
+              "type": "file",
+              "path": "cluster-logging-operator/examples/multi-output-filtered.yaml",
+              "extension": ".yaml"
+            },
+            {
+              "name": "README.md",
+              "type": "file",
+              "path": "cluster-logging-operator/examples/README.md",
+              "extension": ".md"
+            },
+            {
+              "name": "splunk-hec.yaml",
+              "type": "file",
+              "path": "cluster-logging-operator/examples/splunk-hec.yaml",
+              "extension": ".yaml"
+            },
+            {
+              "name": "syslog-rfc5424.yaml",
+              "type": "file",
+              "path": "cluster-logging-operator/examples/syslog-rfc5424.yaml",
+              "extension": ".yaml"
+            }
+          ]
         },
         {
-          "name": "elasticsearch.yaml",
+          "name": "api-reference.md",
           "type": "file",
-          "path": "examples/elasticsearch.yaml",
-          "extension": ".yaml"
+          "path": "cluster-logging-operator/api-reference.md",
+          "extension": ".md"
         },
         {
-          "name": "kafka.yaml",
+          "name": "configuration-reference.md",
           "type": "file",
-          "path": "examples/kafka.yaml",
-          "extension": ".yaml"
+          "path": "cluster-logging-operator/configuration-reference.md",
+          "extension": ".md"
         },
         {
-          "name": "lokistack-basic.yaml",
+          "name": "deployment.md",
           "type": "file",
-          "path": "examples/lokistack-basic.yaml",
-          "extension": ".yaml"
+          "path": "cluster-logging-operator/deployment.md",
+          "extension": ".md"
         },
         {
-          "name": "multi-output-with-filters.yaml",
+          "name": "getting-started.md",
           "type": "file",
-          "path": "examples/multi-output-with-filters.yaml",
-          "extension": ".yaml"
+          "path": "cluster-logging-operator/getting-started.md",
+          "extension": ".md"
         },
         {
           "name": "README.md",
           "type": "file",
-          "path": "examples/README.md",
+          "path": "cluster-logging-operator/README.md",
           "extension": ".md"
         },
         {
-          "name": "splunk.yaml",
+          "name": "troubleshooting.md",
           "type": "file",
-          "path": "examples/splunk.yaml",
-          "extension": ".yaml"
+          "path": "cluster-logging-operator/troubleshooting.md",
+          "extension": ".md"
         },
         {
-          "name": "syslog.yaml",
+          "name": "validation-shortcomings.md",
           "type": "file",
-          "path": "examples/syslog.yaml",
-          "extension": ".yaml"
+          "path": "cluster-logging-operator/validation-shortcomings.md",
+          "extension": ".md"
         }
       ]
     },
     {
-      "name": "api-reference.md",
-      "type": "file",
-      "path": "api-reference.md",
-      "extension": ".md"
-    },
-    {
-      "name": "configuration-reference.md",
-      "type": "file",
-      "path": "configuration-reference.md",
-      "extension": ".md"
-    },
-    {
-      "name": "deployment.md",
-      "type": "file",
-      "path": "deployment.md",
-      "extension": ".md"
-    },
-    {
-      "name": "getting-started.md",
-      "type": "file",
-      "path": "getting-started.md",
-      "extension": ".md"
-    },
-    {
-      "name": "README.md",
-      "type": "file",
-      "path": "README.md",
-      "extension": ".md"
-    },
-    {
-      "name": "troubleshooting.md",
-      "type": "file",
-      "path": "troubleshooting.md",
-      "extension": ".md"
-    },
-    {
-      "name": "validation-shortcomings.md",
-      "type": "file",
-      "path": "validation-shortcomings.md",
-      "extension": ".md"
+      "name": "machine-config-operator",
+      "type": "directory",
+      "children": [
+        {
+          "name": "examples",
+          "type": "directory",
+          "children": [
+            {
+              "name": "containerruntimeconfig.yaml",
+              "type": "file",
+              "path": "machine-config-operator/examples/containerruntimeconfig.yaml",
+              "extension": ".yaml"
+            },
+            {
+              "name": "kubeletconfig.yaml",
+              "type": "file",
+              "path": "machine-config-operator/examples/kubeletconfig.yaml",
+              "extension": ".yaml"
+            },
+            {
+              "name": "machineconfig-custom-file.yaml",
+              "type": "file",
+              "path": "machine-config-operator/examples/machineconfig-custom-file.yaml",
+              "extension": ".yaml"
+            },
+            {
+              "name": "machineconfig-kernel-args.yaml",
+              "type": "file",
+              "path": "machine-config-operator/examples/machineconfig-kernel-args.yaml",
+              "extension": ".yaml"
+            },
+            {
+              "name": "machineconfig-ssh-keys.yaml",
+              "type": "file",
+              "path": "machine-config-operator/examples/machineconfig-ssh-keys.yaml",
+              "extension": ".yaml"
+            },
+            {
+              "name": "machineconfig-systemd-unit.yaml",
+              "type": "file",
+              "path": "machine-config-operator/examples/machineconfig-systemd-unit.yaml",
+              "extension": ".yaml"
+            },
+            {
+              "name": "machineconfigpool-custom.yaml",
+              "type": "file",
+              "path": "machine-config-operator/examples/machineconfigpool-custom.yaml",
+              "extension": ".yaml"
+            },
+            {
+              "name": "machineosconfig.yaml",
+              "type": "file",
+              "path": "machine-config-operator/examples/machineosconfig.yaml",
+              "extension": ".yaml"
+            },
+            {
+              "name": "node-disruption-policy.yaml",
+              "type": "file",
+              "path": "machine-config-operator/examples/node-disruption-policy.yaml",
+              "extension": ".yaml"
+            },
+            {
+              "name": "pinnedimageset.yaml",
+              "type": "file",
+              "path": "machine-config-operator/examples/pinnedimageset.yaml",
+              "extension": ".yaml"
+            }
+          ]
+        },
+        {
+          "name": "api-reference.md",
+          "type": "file",
+          "path": "machine-config-operator/api-reference.md",
+          "extension": ".md"
+        },
+        {
+          "name": "configuration-reference.md",
+          "type": "file",
+          "path": "machine-config-operator/configuration-reference.md",
+          "extension": ".md"
+        },
+        {
+          "name": "deployment.md",
+          "type": "file",
+          "path": "machine-config-operator/deployment.md",
+          "extension": ".md"
+        },
+        {
+          "name": "getting-started.md",
+          "type": "file",
+          "path": "machine-config-operator/getting-started.md",
+          "extension": ".md"
+        },
+        {
+          "name": "README.md",
+          "type": "file",
+          "path": "machine-config-operator/README.md",
+          "extension": ".md"
+        },
+        {
+          "name": "troubleshooting.md",
+          "type": "file",
+          "path": "machine-config-operator/troubleshooting.md",
+          "extension": ".md"
+        }
+      ]
     }
   ]
 }
