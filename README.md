@@ -44,7 +44,7 @@ claude --plugin-dir /path/to/operator-user-docs
 
 ```bash
 cd create-docs-website
-python3 generate-site.py --docs-dir ../user-docs
+python3 generate-site.py /path/to/your/user-docs
 # Open index.html in a browser
 ```
 
